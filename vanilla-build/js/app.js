@@ -1,3 +1,5 @@
+import View from "./view.js";
+
 // Namespace
 const App = {
   // All of our selected HTML elements
@@ -165,3 +167,11 @@ const App = {
 
 // listening for load, the initializing application
 window.addEventListener("load", App.init);
+
+function init() {
+  const view = new View();
+
+  console.log(view.$.turn);
+}
+
+window.addEventListener("load", init);
