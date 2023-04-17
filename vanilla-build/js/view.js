@@ -13,7 +13,7 @@ export default class View {
     this.$.turn = document.querySelector('[data-id="turn"]');
   }
 
-  bondGameResetEvent(handler) {
+  bindGameResetEvent(handler) {
     this.$.resetBtn.addEventListener("click", (event) => {});
   }
 }
