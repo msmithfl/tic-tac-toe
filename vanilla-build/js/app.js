@@ -2,7 +2,6 @@ import View from "./view.js";
 import Store from "./store.js";
 
 // Namespace
-
 const App = {
   // All of our selected HTML elements
   $: {
@@ -167,13 +166,29 @@ const App = {
   },
 };
 
+// config array
+const players = [
+  {
+    id: 1,
+    name: "Player 1",
+    iconClass: "fa-x",
+    colorClass: "turquoise",
+  },
+  {
+    id: 2,
+    name: "Player 2",
+    iconClass: "fa-o",
+    colorClass: "yellow",
+  },
+];
+
 // listening for load, the initializing application
 
 function init() {
   // keeps controller logic as simple as possible
   // orchestrates what happens to the state and view
   const view = new View();
-  const store = new Store();
+  const store = new Store(players);
 
   console.log(store.game);
 
@@ -187,9 +202,23 @@ function init() {
     console.log(event);
   });
 
-  view.bindPlayerMoveEvent((event) => {
-    view.setTurnIndicator(2);
-    view.handlePlayerMove(event.target, 1);
+  view.bindPlayerMoveEvent((square) => {
+    const existingMove = store.game.moves.find(
+      (move) => move.squareId === +square.id
+    );
+
+    if (existingMove) {
+      return;
+    }
+
+    // Place an icon of the current player in a quare
+    view.handlePlayerMove(square, store.game.currentPlayer);
+
+    // Advance to the next state by pushing a move to the moves array
+    store.playerMove(+square.id);
+
+    // Set the next player's turn indicator
+    view.setTurnIndicator(store.game.currentPlayer);
   });
 }
 

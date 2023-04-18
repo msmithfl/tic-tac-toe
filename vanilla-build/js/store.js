@@ -5,10 +5,32 @@ const initialValue = {
 export default class Store {
   #state = initialValue;
 
-  constructor() {}
+  constructor(players) {
+    this.players = players;
+  }
 
   get game() {
-    return "dummy value";
+    const state = this.#getState();
+
+    const currentPlayer = this.players[state.moves.length % 2];
+
+    return {
+      moves: state.moves,
+      currentPlayer,
+    };
+  }
+
+  playerMove(squareId) {
+    const state = this.#getState();
+
+    const stateClone = structuredClone(state);
+
+    stateClone.moves.push({
+      squareId,
+      player: this.game.currentPlayer,
+    });
+
+    this.#saveState(stateClone);
   }
 
   #getState() {
