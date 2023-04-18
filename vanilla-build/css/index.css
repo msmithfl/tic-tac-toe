@@ -77,8 +77,6 @@ button:hover {
 }
 
 .turn {
-  color: var(--yellow);
-
   grid-column-start: 1; /* start/end used to span multiple columns */
   grid-column-end: 3;
   align-self: center;
