@@ -1,4 +1,5 @@
 import View from "./view.js";
+import Store from "./store.js";
 
 // Namespace
 
@@ -172,6 +173,9 @@ function init() {
   // keeps controller logic as simple as possible
   // orchestrates what happens to the state and view
   const view = new View();
+  const store = new Store();
+
+  console.log(store.game);
 
   view.bindGameResetEvent((event) => {
     console.log("Reset event");
